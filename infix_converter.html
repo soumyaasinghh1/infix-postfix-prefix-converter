@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infix to Postfix & Prefix Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2daff;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .title-box {
+    background-color: #6e008f;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 30px;
+    }
+
+    .title-box h1 {
+    margin: 0;
+    font-size: 28px;
+    }
+
+    .container {
+      background: rgb(255, 242, 0);
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(57, 0, 53, 0.205);
+    }
+    input, button {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #fffa98;
+      color: rgb(153, 0, 255);
+      border: 50px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3b0056;
+    }
+    .output {
+      margin-top: 20px;
+    }
+
+    .credit-box {
+    margin-top: 40px;
+    padding: 12px;
+    background-color: #490054;
+    border-top: 2px solid #ffffff;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #fffb00;
+    }
+
+
+    
+  </style>
+</head>
+<body>
+    <div class="title-box">
+        <h1>Infix to Postfix & Prefix Converter</h1>
+      </div>
+      
+    <h3>What is Infix, Postfix, and Prefix?</h3>
+
+<div>
+  <h4>Infix Notation</h4>
+  <img src="infix.png" alt="Infix notation" style="max-width: 100%; height: auto;">
+
+  <h4>Postfix Notation (Reverse Notation)</h4>
+  <img src="postfix.png" alt="Postfix notation" style="max-width: 100%; height: auto;">
+
+  <h4>Prefix Notation</h4>
+  <img src="prefix.png" alt="Prefix notation" style="max-width: 100%; height: auto;">
+</div>
+
+  <div class="container">
+    <h2>Infix to Postfix & Prefix Converter</h2>
+    <input type="text" id="infix" placeholder="Enter infix expression (e.g. A+(B*C))">
+    <button onclick="convert()">Convert</button>
+    <div class="output">
+      <p><strong>Postfix:</strong> <span id="postfix"></span></p>
+      <p><strong>Prefix:</strong> <span id="prefix"></span></p>
+    </div>
+  </div>
+
+  <script>
+    function precedence(op) {
+      if (op === '+' || op === '-') return 1;
+      if (op === '*' || op === '/') return 2;
+      return 0;
+    }
+
+    function isOperator(c) {
+      return ['+', '-', '*', '/'].includes(c);
+    }
+
+    function infixToPostfix(infix) {
+      let stack = [], postfix = "";
+      for (let ch of infix) {
+        if (ch === ' ') continue;
+        if (/[a-zA-Z0-9]/.test(ch)) {
+          postfix += ch;
+        } else if (ch === '(') {
+          stack.push(ch);
+        } else if (ch === ')') {
+          while (stack.length && stack[stack.length - 1] !== '(') {
+            postfix += stack.pop();
+          }
+          stack.pop();
+        } else if (isOperator(ch)) {
+          while (stack.length && precedence(stack[stack.length - 1]) >= precedence(ch)) {
+            postfix += stack.pop();
+          }
+          stack.push(ch);
+        }
+      }
+      while (stack.length) postfix += stack.pop();
+      return postfix;
+    }
+
+    function reverse(str) {
+      return str.split('').reverse().join('');
+    }
+
+    function replaceBrackets(str) {
+      return str.replace(/[()]/g, ch => ch === '(' ? ')' : '(');
+    }
+
+    function infixToPrefix(infix) {
+      let rev = reverse(infix);
+      rev = replaceBrackets(rev);
+      const revPostfix = infixToPostfix(rev);
+      return reverse(revPostfix);
+    }
+
+    function convert() {
+      const infix = document.getElementById("infix").value;
+      document.getElementById("postfix").textContent = infixToPostfix(infix);
+      document.getElementById("prefix").textContent = infixToPrefix(infix);
+    }
+
+    
+
+  </script>
+
+    <div class="credit-box">
+    Made by <strong>Soumya Singh (RA2311043010062)</strong> and 
+    <strong>Shreya Ramanathan (RA2311043010073)</strong>
+    </div>
+</body>
+</html>
