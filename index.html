@@ -12,6 +12,23 @@
       max-width: 600px;
       margin: auto;
     }
+
+    .title-box {
+    background-color: #6e008f;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 30px;
+    }
+
+    .title-box h1 {
+    margin: 0;
+    font-size: 28px;
+    }
+
     .container {
       background: rgb(255, 242, 0);
       padding: 50px;
@@ -30,15 +47,32 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #ae00ff;
+      background-color: #3b0056;
     }
     .output {
       margin-top: 20px;
     }
+
+    .credit-box {
+    margin-top: 40px;
+    padding: 12px;
+    background-color: #490054;
+    border-top: 2px solid #ffffff;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #fffb00;
+    }
+
+
+    
   </style>
 </head>
 <body>
-    <h3>What is Infix, Postfix, and Prefix?</h3>
+    <div class="title-box">
+        <h1>Infix, Postfix and Prefix Expression Converter</h1>
+    </div>
+      
 
 <div>
   <h4>Infix Notation</h4>
@@ -116,6 +150,14 @@
       document.getElementById("postfix").textContent = infixToPostfix(infix);
       document.getElementById("prefix").textContent = infixToPrefix(infix);
     }
+
+    
+
   </script>
+
+    <div class="credit-box">
+    Made by <strong>Soumya Singh (RA2311043010062)</strong> and 
+    <strong>Shreya Ramanathan (RA2311043010073)</strong>
+    </div>
 </body>
 </html>
